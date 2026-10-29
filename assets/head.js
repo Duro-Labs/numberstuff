@@ -12,9 +12,19 @@ window.numberstuff = {
     s.async = true;
     s.src = 'https://www.googletagmanager.com/gtm.js?id=' + encodeURIComponent(this.gtmId);
     document.head.appendChild(s);
+  },
+  granted: function () {
+    return !navigator.globalPrivacyControl && /(?:^|;\s*)numberstuff_consent=granted(?:;|$)/.test(document.cookie);
+  },
+  recheck: function () {
+    if (window.numberstuff.loaded && !window.numberstuff.granted()) { location.reload(); }
   }
 };
-if (!navigator.globalPrivacyControl && /(?:^|;\s*)numberstuff_consent=granted(?:;|$)/.test(document.cookie)) {
+if (window.numberstuff.granted()) {
   gtag('consent','update',{analytics_storage:'granted'});
   window.numberstuff.loadGtm();
 }
+window.addEventListener('pageshow', window.numberstuff.recheck);
+document.addEventListener('visibilitychange', function () {
+  if (document.visibilityState === 'visible') { window.numberstuff.recheck(); }
+});
