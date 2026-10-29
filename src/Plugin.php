@@ -11,6 +11,8 @@ final class Plugin {
 		add_action( 'wp_head', array( Head::class, 'render' ), 1 );
 		add_action( 'wp_footer', array( Banner::class, 'render' ) );
 		add_action( 'wp_enqueue_scripts', array( self::class, 'enqueue' ) );
+		add_action( 'rest_api_init', array( Counter::class, 'register_route' ) );
+		add_action( 'wp_dashboard_setup', array( Dashboard::class, 'register' ) );
 	}
 
 	public static function enqueue(): void {
