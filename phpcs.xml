@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <ruleset name="numberstuff">
 	<file>numberstuff.php</file>
+	<file>uninstall.php</file>
 	<file>src</file>
 	<file>tests/e2e/fixtures</file>
 	<arg name="extensions" value="php"/>
