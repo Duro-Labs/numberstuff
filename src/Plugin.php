@@ -8,6 +8,14 @@ final class Plugin {
 			add_action( 'admin_notices', array( self::class, 'inactive_notice' ) );
 			return;
 		}
+		add_action( 'wp_head', array( Head::class, 'render' ), 1 );
+		add_action( 'wp_footer', array( Banner::class, 'render' ) );
+		add_action( 'wp_enqueue_scripts', array( self::class, 'enqueue' ) );
+	}
+
+	public static function enqueue(): void {
+		$base = plugin_dir_url( PLUGIN_FILE ) . 'assets/';
+		wp_enqueue_style( 'numberstuff-banner', $base . 'banner.css', array(), VERSION );
 	}
 
 	public static function load_textdomain(): void {

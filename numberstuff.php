@@ -19,6 +19,8 @@ const VERSION     = '0.1.0';
 const PLUGIN_FILE = __FILE__;
 
 require_once __DIR__ . '/src/Config.php';
+require_once __DIR__ . '/src/Head.php';
+require_once __DIR__ . '/src/Banner.php';
 require_once __DIR__ . '/src/Plugin.php';
 
 Plugin::boot();
