@@ -37,4 +37,7 @@ npx playwright install chromium && npx playwright test
 npm run gtm:apply -- dev --dry-run   # show differences against the live version
 npm run gtm:apply -- dev             # sync a workspace and create a version
 npm run gtm:publish -- dev <versionId>
+npm run gtm:publish -- prod <versionId> --confirm-prod
 ```
+
+Unknown arguments are rejected, so a mistyped `--dry-run` fails instead of applying.

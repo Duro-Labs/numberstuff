@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
-import { diff, normalize, render } from './lib.mjs';
+import { diff, normalize, parseArgs, render } from './lib.mjs';
 
 const spec = JSON.parse(readFileSync(new URL('./container.json', import.meta.url)));
 const target = { measurementId: 'G-TEST' };
@@ -51,4 +51,34 @@ test('diff creates, updates and removes by name', () => {
   assert.deepEqual(result.create.map((e) => e.name), ['add']);
   assert.deepEqual(result.update.map((u) => u.desired.name), ['change']);
   assert.deepEqual(result.remove.map((e) => e.name), ['stale']);
+});
+
+test('parses validate, apply and publish', () => {
+  assert.deepEqual(parseArgs(['validate']), { command: 'validate' });
+  assert.deepEqual(parseArgs(['apply', 'dev']), { command: 'apply', target: 'dev', dryRun: false });
+  assert.deepEqual(parseArgs(['apply', 'dev', '--dry-run']), { command: 'apply', target: 'dev', dryRun: true });
+  assert.deepEqual(parseArgs(['publish', 'dev', '12']), { command: 'publish', target: 'dev', versionId: '12' });
+});
+
+test('rejects unknown flags so a mistyped --dry-run cannot mutate', () => {
+  assert.throws(() => parseArgs(['apply', 'dev', '--dryrun']), /unknown argument --dryrun/);
+  assert.throws(() => parseArgs(['apply', 'dev', '--dry-run=false']), /unknown argument --dry-run=false/);
+  assert.throws(() => parseArgs(['apply', 'dev', '-n']), /unknown argument -n/);
+  assert.throws(() => parseArgs(['validate', '--dry-run']), /unknown argument --dry-run/);
+  assert.throws(() => parseArgs(['publish', 'dev', '12', '--dry-run']), /unknown argument --dry-run/);
+});
+
+test('rejects a missing or extra positional argument and unknown commands', () => {
+  assert.throws(() => parseArgs(['apply']), /usage:/);
+  assert.throws(() => parseArgs(['apply', 'dev', 'prod']), /usage:/);
+  assert.throws(() => parseArgs(['publish', 'dev']), /usage:/);
+  assert.throws(() => parseArgs(['validate', 'dev']), /usage:/);
+  assert.throws(() => parseArgs(['deploy', 'dev']), /usage:/);
+  assert.throws(() => parseArgs([]), /usage:/);
+});
+
+test('publishing prod needs --confirm-prod', () => {
+  assert.throws(() => parseArgs(['publish', 'prod', '7']), /--confirm-prod/);
+  assert.deepEqual(parseArgs(['publish', 'prod', '7', '--confirm-prod']), { command: 'publish', target: 'prod', versionId: '7' });
+  assert.throws(() => parseArgs(['apply', 'prod', '--confirm-prod']), /unknown argument --confirm-prod/);
 });

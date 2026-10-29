@@ -106,3 +106,31 @@ export function diff(desired, current) {
   const remove = current.filter((e) => !wanted.has(e.name));
   return { create, update, remove };
 }
+
+export const USAGE = 'usage: cli.mjs validate | apply <target> [--dry-run] | publish <target> <versionId> [--confirm-prod]';
+
+const COMMANDS = {
+  validate: { positionals: [], flags: [] },
+  apply: { positionals: ['target'], flags: ['--dry-run'] },
+  publish: { positionals: ['target', 'versionId'], flags: ['--confirm-prod'] },
+};
+
+export function parseArgs(argv) {
+  const [command, ...rest] = argv;
+  const shape = COMMANDS[command];
+  if (!shape) throw new Error(USAGE);
+  const flags = rest.filter((arg) => arg.startsWith('-'));
+  const positionals = rest.filter((arg) => !arg.startsWith('-'));
+  const unknown = flags.find((flag) => !shape.flags.includes(flag));
+  if (unknown) throw new Error(`unknown argument ${unknown}\n${USAGE}`);
+  if (positionals.length !== shape.positionals.length) throw new Error(USAGE);
+  const parsed = { command };
+  shape.positionals.forEach((name, i) => {
+    parsed[name] = positionals[i];
+  });
+  if (command === 'apply') parsed.dryRun = flags.includes('--dry-run');
+  if (command === 'publish' && parsed.target === 'prod' && !flags.includes('--confirm-prod')) {
+    throw new Error('publishing prod needs --confirm-prod');
+  }
+  return parsed;
+}

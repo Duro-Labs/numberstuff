@@ -2,7 +2,7 @@ import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import Ajv from 'ajv';
 import { call } from './api.mjs';
-import { BUILT_IN_TRIGGERS, diff, render } from './lib.mjs';
+import { BUILT_IN_TRIGGERS, diff, parseArgs, render } from './lib.mjs';
 
 const GTM = 'https://tagmanager.googleapis.com/tagmanager/v2/';
 const GA = 'https://analyticsadmin.googleapis.com/v1beta/';
@@ -139,18 +139,17 @@ async function ga4(spec, target, dryRun) {
 
 async function publish(targetName, versionId) {
   const target = read('targets.json')[targetName];
-  if (!target || !versionId) throw new Error('usage: publish <target> <versionId>');
+  if (!target) throw new Error(`unknown target ${targetName}`);
   const path = `accounts/${target.accountId}/containers/${target.containerId}/versions/${versionId}`;
   await call('POST', `${GTM}${path}:publish`);
   console.log(`published version ${versionId} of ${target.publicId}`);
 }
 
-const [command, ...args] = process.argv.slice(2);
 try {
-  if (command === 'validate') validate();
-  else if (command === 'apply') await apply(args[0], args.includes('--dry-run'));
-  else if (command === 'publish') await publish(args[0], args[1]);
-  else throw new Error('usage: cli.mjs validate | apply <target> [--dry-run] | publish <target> <versionId>');
+  const args = parseArgs(process.argv.slice(2));
+  if (args.command === 'validate') validate();
+  else if (args.command === 'apply') await apply(args.target, args.dryRun);
+  else await publish(args.target, args.versionId);
 } catch (error) {
   console.error(error.message);
   process.exit(1);
