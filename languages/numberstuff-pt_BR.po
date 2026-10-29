@@ -3,16 +3,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: numberstuff 0.1.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/numberstuff\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: pt_BR\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Report-Msgid-Bugs-To: https://github.com/Duro-Labs/numberstuff/issues\n"
+"Last-Translator: Fernando Duro\n"
+"Language-Team: Portuguese (Brazil)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-29T18:42:48+00:00\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2026-10-29T19:16:54+00:00\n"
+"PO-Revision-Date: 2026-10-29 19:17+0000\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: numberstuff\n"
 
@@ -51,25 +51,30 @@ msgstr "Recusar"
 msgid "Accept"
 msgstr "Aceitar"
 
-#: src/Plugin.php:31
+#: src/Plugin.php:54
 msgid "numberstuff is inactive: set NUMBERSTUFF_GTM_ID to a Google Tag Manager container ID (GTM-…)."
 msgstr "O numberstuff está inativo: defina NUMBERSTUFF_GTM_ID com o ID de um contêiner do Google Tag Manager (GTM-…)."
 
-
+#: src/Dashboard.php:19
 msgid "Consent choices"
 msgstr "Escolhas de consentimento"
 
+#: src/Dashboard.php:27
 msgid "No consent choices recorded yet."
 msgstr "Nenhuma escolha de consentimento registrada ainda."
 
+#: src/Dashboard.php:31
 msgid "Month"
 msgstr "Mês"
 
+#: src/Dashboard.php:31
 msgid "Accepted"
-msgstr "Aceitaram"
+msgstr "Aceitos"
 
+#: src/Dashboard.php:31
 msgid "Rejected"
-msgstr "Recusaram"
+msgstr "Recusados"
 
+#: src/Dashboard.php:31
 msgid "Accept rate"
 msgstr "Taxa de aceite"
