@@ -6,7 +6,7 @@
     "env:start": "wp-env start",
     "env:stop": "wp-env stop",
     "test:e2e": "playwright test",
-    "test:gtm": "node --test gtm/",
+    "test:gtm": "node --test 'gtm/*.test.mjs'",
     "gtm:validate": "node gtm/cli.mjs validate",
     "gtm:apply": "node gtm/cli.mjs apply",
     "gtm:publish": "node gtm/cli.mjs publish"

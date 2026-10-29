@@ -1,0 +1,10 @@
+{
+  "parameters": ["link_url", "file_name", "language_from", "language_to", "choice", "form_id"],
+  "events": [
+    { "name": "generate_lead", "parameters": ["form_id"], "keyEvent": true },
+    { "name": "file_download", "parameters": ["file_name", "link_url"], "keyEvent": true },
+    { "name": "language_switch", "parameters": ["language_from", "language_to"], "keyEvent": false },
+    { "name": "outbound_click", "parameters": ["link_url"], "keyEvent": false },
+    { "name": "consent_choice", "parameters": ["choice"], "keyEvent": false }
+  ]
+}
