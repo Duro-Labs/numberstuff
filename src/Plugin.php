@@ -29,6 +29,16 @@ final class Plugin {
 			)
 		);
 		wp_localize_script( 'numberstuff-consent', 'numberstuffConfig', array( 'counterUrl' => rest_url( 'numberstuff/v1/consent' ) ) );
+		wp_enqueue_script(
+			'numberstuff-events',
+			$base . 'events.js',
+			array(),
+			VERSION,
+			array(
+				'in_footer' => true,
+				'strategy'  => 'defer',
+			)
+		);
 	}
 
 	public static function load_textdomain(): void {
