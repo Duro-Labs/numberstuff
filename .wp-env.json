@@ -1,0 +1,20 @@
+{
+  "core": "WordPress/WordPress#7.1.4",
+  "phpVersion": "8.4",
+  "port": 8888,
+  "testsPort": 8889,
+  "plugins": [
+    "https://downloads.wordpress.org/plugin/polylang.3.9.1.zip",
+    "https://downloads.wordpress.org/plugin/wpforms-lite.2.0.3.1.zip"
+  ],
+  "mappings": {
+    "wp-content/plugins/numberstuff": "."
+  },
+  "config": {
+    "NUMBERSTUFF_GTM_ID": "GTM-TEST123",
+    "NUMBERSTUFF_PRIVACY_URL": "/privacy/"
+  },
+  "lifecycleScripts": {
+    "afterStart": "wp-env run cli wp plugin activate numberstuff && wp-env run cli wp rewrite structure /%postname%/ && wp-env run cli wp eval-file wp-content/plugins/numberstuff/tests/e2e/fixtures/setup.php --user=admin"
+  }
+}

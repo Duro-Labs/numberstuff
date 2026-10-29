@@ -1,0 +1,7 @@
+/vendor/
+/node_modules/
+/test-results/
+/playwright-report/
+/.wp-env.override.json
+.DS_Store
+*.log
