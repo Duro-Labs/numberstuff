@@ -18,6 +18,17 @@ final class Plugin {
 	public static function enqueue(): void {
 		$base = plugin_dir_url( PLUGIN_FILE ) . 'assets/';
 		wp_enqueue_style( 'numberstuff-banner', $base . 'banner.css', array(), VERSION );
+		wp_enqueue_script(
+			'numberstuff-consent',
+			$base . 'consent.js',
+			array(),
+			VERSION,
+			array(
+				'in_footer' => true,
+				'strategy'  => 'defer',
+			)
+		);
+		wp_localize_script( 'numberstuff-consent', 'numberstuffConfig', array( 'counterUrl' => rest_url( 'numberstuff/v1/consent' ) ) );
 	}
 
 	public static function load_textdomain(): void {
