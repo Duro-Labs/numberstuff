@@ -16,6 +16,7 @@ final class BannerTest extends TestCase {
 	}
 
 	protected function tearDown(): void {
+		putenv( 'NUMBERSTUFF_PRIVACY_URL' );
 		Monkey\tearDown();
 		parent::tearDown();
 	}
@@ -39,5 +40,17 @@ final class BannerTest extends TestCase {
 	public function test_banner_text_is_filterable(): void {
 		Monkey\Filters\expectApplied( 'numberstuff_banner_text' )->once()->andReturn( 'Custom <b>text</b>' );
 		$this->assertStringContainsString( 'Custom &lt;b&gt;text&lt;/b&gt;', Banner::markup( null ) );
+	}
+
+	public function test_privacy_url_is_filterable(): void {
+		putenv( 'NUMBERSTUFF_PRIVACY_URL=/privacy/' );
+		Monkey\Filters\expectApplied( 'numberstuff_privacy_url' )->once()->with( '/privacy/' )->andReturn( '/pt/privacidade/' );
+		$this->assertSame( '/pt/privacidade/', Banner::privacy_url() );
+	}
+
+	public function test_filtered_privacy_url_that_is_not_a_non_empty_string_means_no_link(): void {
+		Monkey\Filters\expectApplied( 'numberstuff_privacy_url' )->twice()->andReturn( '', false );
+		$this->assertNull( Banner::privacy_url() );
+		$this->assertNull( Banner::privacy_url() );
 	}
 }

@@ -11,6 +11,8 @@ Set in the environment or as `wp-config.php` constants:
 
 Add `data-numberstuff-consent` to any link to reopen the banner.
 
+Filters: `numberstuff_banner_text` changes the banner text; `numberstuff_privacy_url` receives the configured privacy URL (or `null`) and returns the one to link, for example a per-language page. Return `null` or an empty string for no link.
+
 ## Events
 
 `generate_lead`, `file_download`, `language_switch`, `outbound_click`, `consent_choice` — pushed to `window.dataLayer`; GTM reads them only after consent.

@@ -21,7 +21,15 @@ final class Banner {
 		);
 	}
 
+	public static function privacy_url(): ?string {
+		$url = apply_filters( 'numberstuff_privacy_url', Config::privacy_url() );
+		if ( ! is_string( $url ) || '' === $url ) {
+			return null;
+		}
+		return $url;
+	}
+
 	public static function render(): void {
-		echo self::markup( Config::privacy_url() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo self::markup( self::privacy_url() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 }
