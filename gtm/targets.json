@@ -1,0 +1,16 @@
+{
+  "dev": {
+    "accountId": "6401049006",
+    "containerId": "284283346",
+    "publicId": "GTM-KJW4MVXG",
+    "measurementId": "G-4P547NR99Y",
+    "ga4PropertyId": "561472209"
+  },
+  "prod": {
+    "accountId": "6401049006",
+    "containerId": "284279217",
+    "publicId": "GTM-P7TB6TRF",
+    "measurementId": null,
+    "ga4PropertyId": null
+  }
+}

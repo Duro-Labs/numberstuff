@@ -1,0 +1,29 @@
+{
+  "name": "duro-labs/numberstuff",
+  "description": "Consent-first Google Tag Manager loading and growth events for WordPress.",
+  "type": "wordpress-plugin",
+  "license": "GPL-2.0-or-later",
+  "require": {
+    "php": ">=8.4"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "13.4.5",
+    "brain/monkey": "2.7.0",
+    "wp-coding-standards/wpcs": "3.4.1",
+    "dealerdirect/phpcodesniffer-composer-installer": "1.2.1"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Numberstuff\\Tests\\": "tests/php/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  },
+  "scripts": {
+    "test": "phpunit",
+    "lint": "phpcs"
+  }
+}

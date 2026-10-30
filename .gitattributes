@@ -1,0 +1,15 @@
+/tests export-ignore
+/gtm export-ignore
+/bin export-ignore
+/.github export-ignore
+/package.json export-ignore
+/package-lock.json export-ignore
+/.wp-env.json export-ignore
+/playwright.config.ts export-ignore
+/phpunit.xml.dist export-ignore
+/phpcs.xml export-ignore
+/.editorconfig export-ignore
+/.nvmrc export-ignore
+/.gitignore export-ignore
+/.gitattributes export-ignore
+/composer.lock export-ignore
